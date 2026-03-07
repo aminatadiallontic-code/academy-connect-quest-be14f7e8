@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   GraduationCap, User, BookOpen, FileText, ChevronLeft, ChevronRight,
-  Camera, Upload, Check
+  Camera, Upload, Check, Home
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,13 +13,14 @@ import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 
 const steps = [
-  { id: 1, label: "Informations personnelles", icon: User },
-  { id: 2, label: "Informations académiques", icon: BookOpen },
-  { id: 3, label: "Documents & photos", icon: FileText },
+  { id: 1, label: "Personnel", fullLabel: "Informations personnelles", icon: User },
+  { id: 2, label: "Académique", fullLabel: "Informations académiques", icon: BookOpen },
+  { id: 3, label: "Documents", fullLabel: "Documents & photos", icon: FileText },
 ];
 
 const StudentForm = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [form, setForm] = useState({
     lastName: "", firstName: "", birthDate: "", birthPlace: "",
@@ -30,6 +31,13 @@ const StudentForm = () => {
   const [photos, setPhotos] = useState<{ portrait: File | null; id: File | null; proof: File | null }>({
     portrait: null, id: null, proof: null,
   });
+
+  useEffect(() => {
+    const step = searchParams.get("step");
+    if (step && [1, 2, 3].includes(Number(step))) {
+      setCurrentStep(Number(step));
+    }
+  }, [searchParams]);
 
   const progress = Math.round(((currentStep - 1) / steps.length) * 100 + (100 / steps.length) * 0.5);
 
@@ -56,6 +64,10 @@ const StudentForm = () => {
         toast.error("La taille du fichier ne doit pas dépasser 2 Mo");
         return;
       }
+      if (!file.type.match(/^image\/(jpeg|png)$/)) {
+        toast.error("Seuls les formats JPEG et PNG sont acceptés");
+        return;
+      }
       setPhotos((prev) => ({ ...prev, [type]: file }));
       toast.success(`${file.name} ajouté`);
     }
@@ -72,39 +84,49 @@ const StudentForm = () => {
       <header className="sticky top-0 z-50 border-b border-border bg-card/90 backdrop-blur-sm">
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
           <Link to="/dashboard" className="flex items-center gap-2 text-primary">
-            <GraduationCap className="h-7 w-7" />
-            <span className="font-display text-lg font-bold">GestApprenants</span>
+            <GraduationCap className="h-6 w-6 sm:h-7 sm:w-7" />
+            <span className="font-display text-base sm:text-lg font-bold">GestApprenants</span>
+          </Link>
+          <Link to="/dashboard">
+            <Button variant="ghost" size="sm" className="gap-1.5">
+              <Home className="h-4 w-4" />
+              <span className="hidden sm:inline">Dashboard</span>
+            </Button>
           </Link>
         </div>
       </header>
 
-      <main className="container mx-auto max-w-2xl px-4 py-8">
+      <main className="container mx-auto max-w-2xl px-4 py-6 sm:py-8">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-2xl font-bold text-foreground mb-2">Compléter mon dossier</h1>
+          <h1 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-2">Compléter mon dossier</h1>
 
           {/* Step indicator */}
           <div className="mb-2">
             <Progress value={progress} className="h-2" />
           </div>
-          <div className="mb-8 flex justify-between">
+          <div className="mb-6 sm:mb-8 flex justify-between">
             {steps.map((s) => {
               const StepIcon = s.icon;
               const isActive = currentStep === s.id;
               const isDone = currentStep > s.id;
               return (
-                <div
+                <button
                   key={s.id}
+                  onClick={() => {
+                    if (isDone) setCurrentStep(s.id);
+                  }}
                   className={`flex items-center gap-1.5 text-xs font-medium transition-colors ${
-                    isActive ? "text-primary" : isDone ? "text-success" : "text-muted-foreground"
-                  }`}
+                    isDone ? "cursor-pointer" : "cursor-default"
+                  } ${isActive ? "text-primary" : isDone ? "text-success" : "text-muted-foreground"}`}
                 >
                   <div className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
                     isActive ? "bg-primary text-primary-foreground" : isDone ? "bg-success text-success-foreground" : "bg-muted text-muted-foreground"
                   }`}>
                     {isDone ? <Check className="h-3.5 w-3.5" /> : s.id}
                   </div>
-                  <span className="hidden sm:inline">{s.label}</span>
-                </div>
+                  <span className="hidden sm:inline">{s.fullLabel}</span>
+                  <span className="sm:hidden">{s.label}</span>
+                </button>
               );
             })}
           </div>
@@ -117,13 +139,13 @@ const StudentForm = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-4 rounded-xl border border-border bg-card p-6 shadow-card"
+                className="space-y-4 rounded-xl border border-border bg-card p-4 sm:p-6 shadow-card"
               >
-                <h2 className="font-display text-lg font-semibold text-card-foreground flex items-center gap-2">
+                <h2 className="font-display text-base sm:text-lg font-semibold text-card-foreground flex items-center gap-2">
                   <User className="h-5 w-5 text-primary" /> Informations personnelles
                 </h2>
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label>Nom(s) *</Label>
                     <Input value={form.lastName} onChange={(e) => update("lastName", e.target.value)} placeholder="DUPONT" />
@@ -160,7 +182,7 @@ const StudentForm = () => {
                   <Label>Adresse complète</Label>
                   <Input value={form.address} onChange={(e) => update("address", e.target.value)} placeholder="Quartier, Ville" />
                 </div>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label>Téléphone</Label>
                     <Input value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="+237 6XX XXX XXX" />
@@ -179,13 +201,13 @@ const StudentForm = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-4 rounded-xl border border-border bg-card p-6 shadow-card"
+                className="space-y-4 rounded-xl border border-border bg-card p-4 sm:p-6 shadow-card"
               >
-                <h2 className="font-display text-lg font-semibold text-card-foreground flex items-center gap-2">
+                <h2 className="font-display text-base sm:text-lg font-semibold text-card-foreground flex items-center gap-2">
                   <BookOpen className="h-5 w-5 text-primary" /> Informations académiques
                 </h2>
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label>Niveau d'étude</Label>
                     <Select value={form.educationLevel} onValueChange={(v) => update("educationLevel", v)}>
@@ -216,7 +238,7 @@ const StudentForm = () => {
                 </div>
 
                 <h3 className="font-display font-semibold text-card-foreground mt-4">Informations administratives (optionnel)</h3>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label>N° acte de naissance</Label>
                     <Input value={form.birthCertNumber} onChange={(e) => update("birthCertNumber", e.target.value)} />
@@ -239,9 +261,9 @@ const StudentForm = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-4 rounded-xl border border-border bg-card p-6 shadow-card"
+                className="space-y-4 rounded-xl border border-border bg-card p-4 sm:p-6 shadow-card"
               >
-                <h2 className="font-display text-lg font-semibold text-card-foreground flex items-center gap-2">
+                <h2 className="font-display text-base sm:text-lg font-semibold text-card-foreground flex items-center gap-2">
                   <FileText className="h-5 w-5 text-primary" /> Documents & Photos
                 </h2>
                 <p className="text-sm text-muted-foreground">
@@ -253,20 +275,20 @@ const StudentForm = () => {
                   { key: "id" as const, label: "Pièce d'identité", icon: FileText },
                   { key: "proof" as const, label: "Justificatif de domicile", icon: Upload },
                 ].map((doc) => (
-                  <div key={doc.key} className="rounded-lg border border-dashed border-border p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                  <div key={doc.key} className="rounded-lg border border-dashed border-border p-3 sm:p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                           <doc.icon className="h-5 w-5 text-primary" />
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <p className="text-sm font-medium text-card-foreground">{doc.label}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {photos[doc.key] ? photos[doc.key]!.name : "Aucun fichier sélectionné"}
+                          <p className="text-xs text-muted-foreground truncate">
+                            {photos[doc.key] ? photos[doc.key]!.name : "Aucun fichier"}
                           </p>
                         </div>
                       </div>
-                      <label>
+                      <label className="shrink-0">
                         <input
                           type="file"
                           accept="image/jpeg,image/png"
@@ -298,7 +320,7 @@ const StudentForm = () => {
               </Button>
             ) : (
               <Button onClick={handleSubmit} className="bg-accent text-accent-foreground hover:bg-accent/90">
-                Soumettre le dossier
+                <Check className="h-4 w-4 mr-1" /> Soumettre
               </Button>
             )}
           </div>
