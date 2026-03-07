@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   GraduationCap, User, FileText, Bell, LogOut, ChevronRight,
-  CheckCircle2, Clock, AlertCircle, Plus, Download, X
+  CheckCircle2, Clock, AlertCircle, Plus, Download, X, QrCode
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
