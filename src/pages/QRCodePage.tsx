@@ -51,7 +51,7 @@ const QRCodePage = () => {
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
           <Link to="/dashboard" className="flex items-center gap-2 text-primary">
             <GraduationCap className="h-6 w-6 sm:h-7 sm:w-7" />
-            <span className="font-display text-base sm:text-lg font-bold">GestApprenants</span>
+            <span className="font-display text-base sm:text-lg font-bold">Mon Parcours</span>
           </Link>
           <Link to="/dashboard">
             <Button variant="ghost" size="sm" className="gap-1.5">
