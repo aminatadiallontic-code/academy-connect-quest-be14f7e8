@@ -57,10 +57,13 @@ const Dashboard = () => {
     toast.success("PDF téléchargé !");
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await signOut();
     toast.success("Déconnexion réussie");
     navigate("/login");
   };
+
+  const displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Apprenant";
 
   return (
     <div className="min-h-screen bg-background">
