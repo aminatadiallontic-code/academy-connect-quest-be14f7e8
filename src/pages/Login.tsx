@@ -51,7 +51,7 @@ const Login = () => {
           <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/10">
             <GraduationCap className="h-10 w-10" />
           </div>
-          <h1 className="font-display text-4xl font-bold tracking-tight">GestApprenants</h1>
+          <h1 className="font-display text-4xl font-bold tracking-tight">Mon Parcours</h1>
           <p className="mt-4 max-w-sm text-primary-foreground/60 text-lg leading-relaxed">
             Gérez vos apprenants de manière simple, sécurisée et efficace.
           </p>
@@ -87,7 +87,7 @@ const Login = () => {
               <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary">
                 <GraduationCap className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-display text-lg font-bold text-foreground">GestApprenants</span>
+              <span className="font-display text-lg font-bold text-foreground">Mon Parcours</span>
             </div>
             <Link to="/">
               <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground">

@@ -41,7 +41,7 @@ const Index = () => {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary shadow-primary-glow">
               <GraduationCap className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="font-display text-lg font-bold text-foreground tracking-tight">GestApprenants</span>
+            <span className="font-display text-lg font-bold text-foreground tracking-tight">Mon Parcours</span>
           </div>
           <div className="flex items-center gap-2">
             <Link to="/login">
@@ -110,7 +110,7 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/login">
-              <Button size="lg" variant="outline" className="text-base px-8 h-12 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
+              <Button size="lg" variant="outline" className="text-base px-8 h-12 border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground backdrop-blur-sm">
                 Se connecter
               </Button>
             </Link>
@@ -204,7 +204,7 @@ const Index = () => {
               Prêt à transformer votre gestion ?
             </h2>
             <p className="mx-auto max-w-md text-primary-foreground/65 mb-8">
-              Rejoignez les établissements qui font confiance à GestApprenants pour gérer leurs dossiers étudiants.
+              Rejoignez les établissements qui font confiance à Mon Parcours pour gérer leurs dossiers étudiants.
             </p>
             <Link to="/register">
               <Button size="lg" className="gradient-accent text-accent-foreground btn-shine gap-2 px-10 h-12 shadow-lg">
@@ -222,10 +222,10 @@ const Index = () => {
             <div className="flex h-7 w-7 items-center justify-center rounded-lg gradient-primary">
               <GraduationCap className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="font-display text-sm font-bold text-foreground">GestApprenants</span>
+            <span className="font-display text-sm font-bold text-foreground">Mon Parcours</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            © 2026 GestApprenants. Tous droits réservés.
+            © 2026 Mon Parcours. Tous droits réservés.
           </p>
         </div>
       </footer>

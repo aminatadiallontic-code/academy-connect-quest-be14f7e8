@@ -29,7 +29,7 @@ const QRCodePage = () => {
   const handleScan = (data: string) => {
     try {
       const parsed = JSON.parse(data) as ScannedStudent;
-      if (parsed.type === "gestapprenants_student") {
+      if (parsed.type === "monparcours_student") {
         setScannedResult(parsed);
         setScanError(false);
         toast.success(`Apprenant trouvé : ${parsed.name}`);
@@ -51,7 +51,7 @@ const QRCodePage = () => {
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
           <Link to="/dashboard" className="flex items-center gap-2 text-primary">
             <GraduationCap className="h-6 w-6 sm:h-7 sm:w-7" />
-            <span className="font-display text-base sm:text-lg font-bold">GestApprenants</span>
+            <span className="font-display text-base sm:text-lg font-bold">Mon Parcours</span>
           </Link>
           <Link to="/dashboard">
             <Button variant="ghost" size="sm" className="gap-1.5">
@@ -112,7 +112,7 @@ const QRCodePage = () => {
                 {scanError && (
                   <div className="mt-4 rounded-lg bg-destructive/10 p-4 flex items-center gap-3">
                     <AlertCircle className="h-5 w-5 text-destructive shrink-0" />
-                    <p className="text-sm text-destructive">Ce QR code n'est pas un code GestApprenants valide.</p>
+                    <p className="text-sm text-destructive">Ce QR code n'est pas un code Mon Parcours valide.</p>
                   </div>
                 )}
 

@@ -13,7 +13,7 @@ export const StudentQRCode = ({ studentId, studentName, size = 200 }: StudentQRC
   const qrRef = useRef<HTMLDivElement>(null);
 
   const qrData = JSON.stringify({
-    type: "gestapprenants_student",
+    type: "monparcours_student",
     id: studentId,
     name: studentName,
     generatedAt: new Date().toISOString(),

@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   const notifications = [
     { id: 1, text: "Veuillez compléter vos informations académiques.", time: "Il y a 2h", read: false },
-    { id: 2, text: "Bienvenue sur GestApprenants !", time: "Il y a 1j", read: true },
+    { id: 2, text: "Bienvenue sur Mon Parcours !", time: "Il y a 1j", read: true },
   ];
 
   const handleExportPdf = () => {
@@ -74,7 +74,7 @@ const Dashboard = () => {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-primary">
               <GraduationCap className="h-4.5 w-4.5 text-primary-foreground" />
             </div>
-            <span className="font-display text-base sm:text-lg font-bold text-foreground tracking-tight">GestApprenants</span>
+            <span className="font-display text-base sm:text-lg font-bold text-foreground tracking-tight">Mon Parcours</span>
           </Link>
           <div className="flex items-center gap-1 sm:gap-2">
             <Sheet open={notifOpen} onOpenChange={setNotifOpen}>
