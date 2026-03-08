@@ -35,11 +35,21 @@ const Register = () => {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Inscription réussie ! Bienvenue.");
-      navigate("/dashboard");
-    }, 1000);
+    const { error } = await supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+      options: {
+        data: { full_name: form.fullName },
+        emailRedirectTo: window.location.origin,
+      },
+    });
+    setLoading(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success("Inscription réussie ! Vérifiez votre email.");
+    navigate("/login");
   };
 
   return (
