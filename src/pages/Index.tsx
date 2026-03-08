@@ -41,7 +41,7 @@ const Index = () => {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary shadow-primary-glow">
               <GraduationCap className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="font-display text-lg font-bold text-foreground tracking-tight">GestApprenants</span>
+            <span className="font-display text-lg font-bold text-foreground tracking-tight">Mon Parcours</span>
           </div>
           <div className="flex items-center gap-2">
             <Link to="/login">
