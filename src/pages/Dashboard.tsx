@@ -23,6 +23,7 @@ const statusConfig = {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user, isAdmin, signOut } = useAuth();
   const [notifOpen, setNotifOpen] = useState(false);
   const progress = 45;
   const status: keyof typeof statusConfig = "incomplete";
