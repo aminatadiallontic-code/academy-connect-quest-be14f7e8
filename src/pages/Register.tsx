@@ -65,9 +65,16 @@ const Register = () => {
           transition={{ duration: 0.5 }}
           className="w-full max-w-md"
         >
-          <div className="mb-8 lg:hidden flex items-center gap-2 text-primary">
-            <GraduationCap className="h-8 w-8" />
-            <span className="font-display text-xl font-bold">GestApprenants</span>
+          <div className="mb-8 lg:hidden flex items-center justify-between">
+            <div className="flex items-center gap-2 text-primary">
+              <GraduationCap className="h-8 w-8" />
+              <span className="font-display text-xl font-bold">GestApprenants</span>
+            </div>
+            <Link to="/">
+              <Button variant="ghost" size="sm" className="gap-1.5">
+                <ArrowLeft className="h-4 w-4" /> Retour
+              </Button>
+            </Link>
           </div>
 
           <h2 className="font-display text-2xl font-bold text-foreground">Inscription</h2>

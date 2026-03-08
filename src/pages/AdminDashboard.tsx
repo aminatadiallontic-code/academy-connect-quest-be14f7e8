@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   GraduationCap, Users, CheckCircle2, Clock, AlertCircle,
-  Search, Eye, Check, X, Download, Filter
+  Search, Eye, Check, X, Download, Filter, ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
