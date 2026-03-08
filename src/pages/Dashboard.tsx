@@ -178,11 +178,13 @@ const Dashboard = () => {
                 <QrCode className="h-4 w-4 text-primary" /> Mon QR Code
               </Button>
             </Link>
-            <Link to="/admin">
-              <Button variant="outline" className="w-full gap-2 h-11 rounded-xl hover:border-accent/30">
-                <Shield className="h-4 w-4 text-accent" /> Espace admin
-              </Button>
-            </Link>
+            {isAdmin && (
+              <Link to="/admin">
+                <Button variant="outline" className="w-full gap-2 h-11 rounded-xl hover:border-accent/30">
+                  <Shield className="h-4 w-4 text-accent" /> Espace admin
+                </Button>
+              </Link>
+            )}
             <Button variant="outline" className="w-full gap-2 h-11 rounded-xl hover:border-info/30" onClick={handleExportPdf}>
               <Download className="h-4 w-4 text-info" /> Dossier PDF
             </Button>
