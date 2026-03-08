@@ -81,14 +81,16 @@ const StudentForm = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border bg-card/90 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 border-b border-border/60 glass-strong">
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
-          <Link to="/dashboard" className="flex items-center gap-2 text-primary">
-            <GraduationCap className="h-6 w-6 sm:h-7 sm:w-7" />
-            <span className="font-display text-base sm:text-lg font-bold">GestApprenants</span>
+          <Link to="/dashboard" className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-primary">
+              <GraduationCap className="h-4.5 w-4.5 text-primary-foreground" />
+            </div>
+            <span className="font-display text-base sm:text-lg font-bold text-foreground tracking-tight">GestApprenants</span>
           </Link>
           <Link to="/dashboard">
-            <Button variant="ghost" size="sm" className="gap-1.5">
+            <Button variant="ghost" size="sm" className="gap-1.5 rounded-xl text-muted-foreground">
               <Home className="h-4 w-4" />
               <span className="hidden sm:inline">Dashboard</span>
             </Button>
@@ -98,13 +100,13 @@ const StudentForm = () => {
 
       <main className="container mx-auto max-w-2xl px-4 py-6 sm:py-8">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-2">Compléter mon dossier</h1>
+          <h1 className="font-display text-xl sm:text-2xl font-bold text-foreground tracking-tight mb-2">Compléter mon dossier</h1>
 
           {/* Step indicator */}
           <div className="mb-2">
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-1.5 rounded-full" />
           </div>
-          <div className="mb-6 sm:mb-8 flex justify-between">
+          <div className="mb-8 flex justify-between">
             {steps.map((s) => {
               const StepIcon = s.icon;
               const isActive = currentStep === s.id;
@@ -112,15 +114,17 @@ const StudentForm = () => {
               return (
                 <button
                   key={s.id}
-                  onClick={() => {
-                    if (isDone) setCurrentStep(s.id);
-                  }}
-                  className={`flex items-center gap-1.5 text-xs font-medium transition-colors ${
+                  onClick={() => { if (isDone) setCurrentStep(s.id); }}
+                  className={`flex items-center gap-1.5 text-xs font-medium transition-all ${
                     isDone ? "cursor-pointer" : "cursor-default"
                   } ${isActive ? "text-primary" : isDone ? "text-success" : "text-muted-foreground"}`}
                 >
-                  <div className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
-                    isActive ? "bg-primary text-primary-foreground" : isDone ? "bg-success text-success-foreground" : "bg-muted text-muted-foreground"
+                  <div className={`flex h-8 w-8 items-center justify-center rounded-xl text-xs font-bold transition-all ${
+                    isActive 
+                      ? "gradient-primary text-primary-foreground shadow-primary-glow" 
+                      : isDone 
+                        ? "bg-success/10 text-success border border-success/20" 
+                        : "bg-muted text-muted-foreground"
                   }`}>
                     {isDone ? <Check className="h-3.5 w-3.5" /> : s.id}
                   </div>
@@ -139,33 +143,36 @@ const StudentForm = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-4 rounded-xl border border-border bg-card p-4 sm:p-6 shadow-card"
+                className="space-y-4 rounded-2xl border border-border/60 bg-card p-5 sm:p-7 shadow-card"
               >
-                <h2 className="font-display text-base sm:text-lg font-semibold text-card-foreground flex items-center gap-2">
-                  <User className="h-5 w-5 text-primary" /> Informations personnelles
+                <h2 className="font-display text-base sm:text-lg font-bold text-card-foreground flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/8">
+                    <User className="h-4 w-4 text-primary" />
+                  </div>
+                  Informations personnelles
                 </h2>
 
-                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <Label>Nom(s) *</Label>
-                    <Input value={form.lastName} onChange={(e) => update("lastName", e.target.value)} placeholder="DUPONT" />
+                    <Label className="text-sm font-medium">Nom(s) *</Label>
+                    <Input value={form.lastName} onChange={(e) => update("lastName", e.target.value)} placeholder="DUPONT" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Prénom(s) *</Label>
-                    <Input value={form.firstName} onChange={(e) => update("firstName", e.target.value)} placeholder="Jean" />
+                    <Label className="text-sm font-medium">Prénom(s) *</Label>
+                    <Input value={form.firstName} onChange={(e) => update("firstName", e.target.value)} placeholder="Jean" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Date de naissance *</Label>
-                    <Input type="date" value={form.birthDate} onChange={(e) => update("birthDate", e.target.value)} />
+                    <Label className="text-sm font-medium">Date de naissance *</Label>
+                    <Input type="date" value={form.birthDate} onChange={(e) => update("birthDate", e.target.value)} className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Lieu de naissance</Label>
-                    <Input value={form.birthPlace} onChange={(e) => update("birthPlace", e.target.value)} placeholder="Douala" />
+                    <Label className="text-sm font-medium">Lieu de naissance</Label>
+                    <Input value={form.birthPlace} onChange={(e) => update("birthPlace", e.target.value)} placeholder="Douala" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Sexe *</Label>
+                    <Label className="text-sm font-medium">Sexe *</Label>
                     <Select value={form.gender} onValueChange={(v) => update("gender", v)}>
-                      <SelectTrigger><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+                      <SelectTrigger className="h-11 rounded-xl border-border/80"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
                       <SelectContent>
                         <SelectItem value="M">Masculin</SelectItem>
                         <SelectItem value="F">Féminin</SelectItem>
@@ -173,23 +180,23 @@ const StudentForm = () => {
                     </Select>
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Nationalité</Label>
-                    <Input value={form.nationality} onChange={(e) => update("nationality", e.target.value)} placeholder="Camerounaise" />
+                    <Label className="text-sm font-medium">Nationalité</Label>
+                    <Input value={form.nationality} onChange={(e) => update("nationality", e.target.value)} placeholder="Camerounaise" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label>Adresse complète</Label>
-                  <Input value={form.address} onChange={(e) => update("address", e.target.value)} placeholder="Quartier, Ville" />
+                  <Label className="text-sm font-medium">Adresse complète</Label>
+                  <Input value={form.address} onChange={(e) => update("address", e.target.value)} placeholder="Quartier, Ville" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                 </div>
-                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <Label>Téléphone</Label>
-                    <Input value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="+237 6XX XXX XXX" />
+                    <Label className="text-sm font-medium">Téléphone</Label>
+                    <Input value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="+237 6XX XXX XXX" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Email</Label>
-                    <Input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="email@exemple.com" />
+                    <Label className="text-sm font-medium">Email</Label>
+                    <Input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="email@exemple.com" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                 </div>
               </motion.div>
@@ -201,17 +208,20 @@ const StudentForm = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-4 rounded-xl border border-border bg-card p-4 sm:p-6 shadow-card"
+                className="space-y-4 rounded-2xl border border-border/60 bg-card p-5 sm:p-7 shadow-card"
               >
-                <h2 className="font-display text-base sm:text-lg font-semibold text-card-foreground flex items-center gap-2">
-                  <BookOpen className="h-5 w-5 text-primary" /> Informations académiques
+                <h2 className="font-display text-base sm:text-lg font-bold text-card-foreground flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/8">
+                    <BookOpen className="h-4 w-4 text-primary" />
+                  </div>
+                  Informations académiques
                 </h2>
 
-                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <Label>Niveau d'étude</Label>
+                    <Label className="text-sm font-medium">Niveau d'étude</Label>
                     <Select value={form.educationLevel} onValueChange={(v) => update("educationLevel", v)}>
-                      <SelectTrigger><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+                      <SelectTrigger className="h-11 rounded-xl border-border/80"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
                       <SelectContent>
                         <SelectItem value="licence1">Licence 1</SelectItem>
                         <SelectItem value="licence2">Licence 2</SelectItem>
@@ -224,32 +234,34 @@ const StudentForm = () => {
                     </Select>
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Identifiant étudiant</Label>
-                    <Input value={form.studentId} onChange={(e) => update("studentId", e.target.value)} placeholder="Optionnel" />
+                    <Label className="text-sm font-medium">Identifiant étudiant</Label>
+                    <Input value={form.studentId} onChange={(e) => update("studentId", e.target.value)} placeholder="Optionnel" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Établissement</Label>
-                    <Input value={form.institution} onChange={(e) => update("institution", e.target.value)} placeholder="Université de..." />
+                    <Label className="text-sm font-medium">Établissement</Label>
+                    <Input value={form.institution} onChange={(e) => update("institution", e.target.value)} placeholder="Université de..." className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                   <div className="space-y-1.5">
-                    <Label>Filière / Classe</Label>
-                    <Input value={form.program} onChange={(e) => update("program", e.target.value)} placeholder="Informatique" />
+                    <Label className="text-sm font-medium">Filière / Classe</Label>
+                    <Input value={form.program} onChange={(e) => update("program", e.target.value)} placeholder="Informatique" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
                   </div>
                 </div>
 
-                <h3 className="font-display font-semibold text-card-foreground mt-4">Informations administratives (optionnel)</h3>
-                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <Label>N° acte de naissance</Label>
-                    <Input value={form.birthCertNumber} onChange={(e) => update("birthCertNumber", e.target.value)} />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Tuteur légal</Label>
-                    <Input value={form.guardianName} onChange={(e) => update("guardianName", e.target.value)} placeholder="Nom du tuteur" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Contact tuteur</Label>
-                    <Input value={form.guardianPhone} onChange={(e) => update("guardianPhone", e.target.value)} placeholder="+237..." />
+                <div className="border-t border-border/40 pt-4 mt-2">
+                  <h3 className="font-display font-bold text-card-foreground text-sm mb-3">Informations administratives (optionnel)</h3>
+                  <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label className="text-sm font-medium">N° acte de naissance</Label>
+                      <Input value={form.birthCertNumber} onChange={(e) => update("birthCertNumber", e.target.value)} className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-sm font-medium">Tuteur légal</Label>
+                      <Input value={form.guardianName} onChange={(e) => update("guardianName", e.target.value)} placeholder="Nom du tuteur" className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-sm font-medium">Contact tuteur</Label>
+                      <Input value={form.guardianPhone} onChange={(e) => update("guardianPhone", e.target.value)} placeholder="+237..." className="h-11 rounded-xl border-border/80 bg-muted/30 focus:bg-card transition-colors" />
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -261,10 +273,13 @@ const StudentForm = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-4 rounded-xl border border-border bg-card p-4 sm:p-6 shadow-card"
+                className="space-y-4 rounded-2xl border border-border/60 bg-card p-5 sm:p-7 shadow-card"
               >
-                <h2 className="font-display text-base sm:text-lg font-semibold text-card-foreground flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-primary" /> Documents & Photos
+                <h2 className="font-display text-base sm:text-lg font-bold text-card-foreground flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/8">
+                    <FileText className="h-4 w-4 text-primary" />
+                  </div>
+                  Documents & Photos
                 </h2>
                 <p className="text-sm text-muted-foreground">
                   Formats acceptés : JPEG, PNG. Taille max : 2 Mo par fichier.
@@ -275,16 +290,16 @@ const StudentForm = () => {
                   { key: "id" as const, label: "Pièce d'identité", icon: FileText },
                   { key: "proof" as const, label: "Justificatif de domicile", icon: Upload },
                 ].map((doc) => (
-                  <div key={doc.key} className="rounded-lg border border-dashed border-border p-3 sm:p-4">
+                  <div key={doc.key} className="rounded-xl border border-dashed border-border/80 p-4 hover:border-primary/30 transition-colors">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/8">
                           <doc.icon className="h-5 w-5 text-primary" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-medium text-card-foreground">{doc.label}</p>
+                          <p className="text-sm font-semibold text-card-foreground">{doc.label}</p>
                           <p className="text-xs text-muted-foreground truncate">
-                            {photos[doc.key] ? photos[doc.key]!.name : "Aucun fichier"}
+                            {photos[doc.key] ? photos[doc.key]!.name : "Aucun fichier sélectionné"}
                           </p>
                         </div>
                       </div>
@@ -296,7 +311,7 @@ const StudentForm = () => {
                           onChange={(e) => handleFileChange(doc.key, e)}
                         />
                         <Button type="button" variant="outline" size="sm" asChild>
-                          <span className="cursor-pointer">
+                          <span className="cursor-pointer rounded-xl">
                             {photos[doc.key] ? <Check className="h-4 w-4 mr-1 text-success" /> : <Upload className="h-4 w-4 mr-1" />}
                             {photos[doc.key] ? "Changer" : "Importer"}
                           </span>
@@ -311,16 +326,16 @@ const StudentForm = () => {
 
           {/* Navigation */}
           <div className="mt-6 flex justify-between">
-            <Button variant="outline" onClick={prevStep} disabled={currentStep === 1}>
-              <ChevronLeft className="h-4 w-4 mr-1" /> Précédent
+            <Button variant="outline" onClick={prevStep} disabled={currentStep === 1} className="rounded-xl gap-1">
+              <ChevronLeft className="h-4 w-4" /> Précédent
             </Button>
             {currentStep < 3 ? (
-              <Button onClick={nextStep}>
-                Suivant <ChevronRight className="h-4 w-4 ml-1" />
+              <Button onClick={nextStep} className="rounded-xl gradient-primary btn-shine gap-1 shadow-primary-glow">
+                Suivant <ChevronRight className="h-4 w-4" />
               </Button>
             ) : (
-              <Button onClick={handleSubmit} className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <Check className="h-4 w-4 mr-1" /> Soumettre
+              <Button onClick={handleSubmit} className="rounded-xl gradient-accent text-accent-foreground btn-shine gap-1">
+                <Check className="h-4 w-4" /> Soumettre
               </Button>
             )}
           </div>
