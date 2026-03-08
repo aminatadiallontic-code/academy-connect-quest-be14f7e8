@@ -51,7 +51,7 @@ const Login = () => {
           <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/10">
             <GraduationCap className="h-10 w-10" />
           </div>
-          <h1 className="font-display text-4xl font-bold tracking-tight">GestApprenants</h1>
+          <h1 className="font-display text-4xl font-bold tracking-tight">Mon Parcours</h1>
           <p className="mt-4 max-w-sm text-primary-foreground/60 text-lg leading-relaxed">
             Gérez vos apprenants de manière simple, sécurisée et efficace.
           </p>
