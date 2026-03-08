@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { toast } from "sonner";
 import { exportStudentPdf } from "@/lib/exportPdf";
+import { useAuth } from "@/hooks/useAuth";
 
 const statusConfig = {
   incomplete: { label: "Incomplet", color: "bg-destructive/10 text-destructive border border-destructive/20", icon: AlertCircle },
@@ -22,6 +23,7 @@ const statusConfig = {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user, isAdmin, signOut } = useAuth();
   const [notifOpen, setNotifOpen] = useState(false);
   const progress = 45;
   const status: keyof typeof statusConfig = "incomplete";
@@ -55,10 +57,13 @@ const Dashboard = () => {
     toast.success("PDF téléchargé !");
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await signOut();
     toast.success("Déconnexion réussie");
     navigate("/login");
   };
+
+  const displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Apprenant";
 
   return (
     <div className="min-h-screen bg-background">
@@ -117,7 +122,7 @@ const Dashboard = () => {
               <User className="h-7 w-7 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="font-display text-xl sm:text-2xl font-bold text-foreground tracking-tight">Bonjour, Apprenant 👋</h1>
+              <h1 className="font-display text-xl sm:text-2xl font-bold text-foreground tracking-tight">Bonjour, {displayName} 👋</h1>
               <p className="text-sm text-muted-foreground">Voici l'état de votre dossier</p>
             </div>
           </div>
@@ -173,11 +178,13 @@ const Dashboard = () => {
                 <QrCode className="h-4 w-4 text-primary" /> Mon QR Code
               </Button>
             </Link>
-            <Link to="/admin">
-              <Button variant="outline" className="w-full gap-2 h-11 rounded-xl hover:border-accent/30">
-                <Shield className="h-4 w-4 text-accent" /> Espace admin
-              </Button>
-            </Link>
+            {isAdmin && (
+              <Link to="/admin">
+                <Button variant="outline" className="w-full gap-2 h-11 rounded-xl hover:border-accent/30">
+                  <Shield className="h-4 w-4 text-accent" /> Espace admin
+                </Button>
+              </Link>
+            )}
             <Button variant="outline" className="w-full gap-2 h-11 rounded-xl hover:border-info/30" onClick={handleExportPdf}>
               <Download className="h-4 w-4 text-info" /> Dossier PDF
             </Button>
