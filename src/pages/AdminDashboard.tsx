@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   GraduationCap, Users, CheckCircle2, Clock, AlertCircle,
-  Search, Eye, Check, X, Download, Filter
+  Search, Eye, Check, X, Download, Filter, ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -102,12 +102,20 @@ const AdminDashboard = () => {
             <GraduationCap className="h-6 w-6 sm:h-7 sm:w-7" />
             <span className="font-display text-base sm:text-lg font-bold">Admin</span>
           </Link>
-          <Link to="/dashboard">
-            <Button variant="outline" size="sm">
-              <span className="hidden sm:inline">Espace apprenant</span>
-              <span className="sm:hidden">Apprenant</span>
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link to="/dashboard">
+              <Button variant="ghost" size="sm" className="gap-1.5">
+                <ArrowLeft className="h-4 w-4" />
+                <span className="hidden sm:inline">Retour</span>
+              </Button>
+            </Link>
+            <Link to="/dashboard">
+              <Button variant="outline" size="sm">
+                <span className="hidden sm:inline">Espace apprenant</span>
+                <span className="sm:hidden">Apprenant</span>
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
