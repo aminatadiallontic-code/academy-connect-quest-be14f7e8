@@ -21,11 +21,17 @@ const Login = () => {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Connexion réussie !");
-      navigate("/dashboard");
-    }, 1000);
+    const { error } = await supabase.auth.signInWithPassword({
+      email: form.email,
+      password: form.password,
+    });
+    setLoading(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success("Connexion réussie !");
+    navigate("/dashboard");
   };
 
   return (
