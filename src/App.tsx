@@ -8,6 +8,8 @@ import { RequireAuth, RequireAdmin } from "@/components/AuthGuard";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import StudentForm from "./pages/StudentForm";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -27,6 +29,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
             <Route path="/student-form" element={<RequireAuth><StudentForm /></RequireAuth>} />
             <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
