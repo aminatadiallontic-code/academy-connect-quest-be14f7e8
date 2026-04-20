@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   GraduationCap, User, FileText, Bell, LogOut, ChevronRight,
-  CheckCircle2, Clock, AlertCircle, Plus, Download, QrCode, Shield
+  CheckCircle2, Clock, AlertCircle, Plus, Download, QrCode, Shield, Settings as SettingsIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -106,6 +106,11 @@ const Dashboard = () => {
                 </div>
               </SheetContent>
             </Sheet>
+            <Link to="/settings">
+              <Button variant="ghost" size="icon" className="rounded-xl hover:bg-muted">
+                <SettingsIcon className="h-5 w-5 text-muted-foreground" />
+              </Button>
+            </Link>
             <Button variant="ghost" size="icon" onClick={handleLogout} className="rounded-xl hover:bg-destructive/10 hover:text-destructive">
               <LogOut className="h-5 w-5" />
             </Button>
