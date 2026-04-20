@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   GraduationCap, User, FileText, Bell, LogOut, ChevronRight,
-  CheckCircle2, Clock, AlertCircle, Plus, Download, QrCode, Shield, Settings as SettingsIcon
+  CheckCircle2, Clock, AlertCircle, Plus, Download, QrCode, Shield, Settings as SettingsIcon, BookOpen
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -159,6 +159,7 @@ const Dashboard = () => {
             {[
               { to: "/student-form", icon: Plus, title: "Compléter mon dossier", desc: "Remplir les informations manquantes", iconBg: "bg-primary/8 text-primary", hoverBorder: "hover:border-primary/30" },
               { to: "/student-form", icon: User, title: "Mon profil", desc: "Gérer vos informations personnelles", iconBg: "bg-accent/10 text-accent", hoverBorder: "hover:border-accent/30" },
+              { to: "/trainings", icon: BookOpen, title: "Mes formations", desc: "Ajouter et suivre vos formations", iconBg: "bg-success/10 text-success", hoverBorder: "hover:border-success/30" },
               { to: "/student-form?step=3", icon: FileText, title: "Mes documents", desc: "Consulter vos pièces justificatives", iconBg: "bg-info/10 text-info", hoverBorder: "hover:border-info/30", colSpan: "sm:col-span-2 lg:col-span-1" },
             ].map((action) => (
               <Link key={action.title} to={action.to} className={`block ${action.colSpan || ""}`}>
