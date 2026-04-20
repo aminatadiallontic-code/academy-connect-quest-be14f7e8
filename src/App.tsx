@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import StudentForm from "./pages/StudentForm";
 import AdminDashboard from "./pages/AdminDashboard";
 import QRCodePage from "./pages/QRCodePage";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/student-form" element={<RequireAuth><StudentForm /></RequireAuth>} />
             <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
             <Route path="/qrcode" element={<RequireAuth><QRCodePage /></RequireAuth>} />
+            <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
